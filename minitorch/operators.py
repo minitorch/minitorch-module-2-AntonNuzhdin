@@ -27,7 +27,7 @@ def add(x: float, y: float) -> float:
 
 def neg(x: float) -> float:
     "$f(x) = -x$"
-    return -x
+    return float(-x)
 
 
 def lt(x: float, y: float) -> float:
@@ -73,7 +73,7 @@ def relu(x: float) -> float:
 
     (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks) .)
     """
-    return x if x > 0 else 0
+    return x if x > 0 else 0.0
 
 
 EPS = 1e-6
@@ -86,7 +86,7 @@ def log(x: float) -> float:
 
 def exp(x: float) -> float:
     "$f(x) = e^{x}$"
-    return math.exp(x)
+    return float(math.exp(x))
 
 
 def log_back(x: float, d: float) -> float:
@@ -101,13 +101,13 @@ def inv(x: float) -> float:
 
 def inv_back(x: float, d: float) -> float:
     r"If $f(x) = 1/x$ compute $d \times f'(x)$"
-    return d / (x ** 2)
+    return -1.0 * (d / (x ** 2))
 
 
 def relu_back(x: float, d: float) -> float:
     r"If $f = relu$ compute $d \times f'(x)$"
     if x <= 0:
-        return 0
+        return 0.0
     return d
 
 
@@ -129,6 +129,7 @@ def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[fl
          A function that takes a list, applies `fn` to each element, and returns a
          new list
     """
+
     return lambda x: [fn(val) for val in x]
 
 
